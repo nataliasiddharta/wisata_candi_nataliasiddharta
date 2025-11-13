@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wisata_candi_natalia/screens/SearchScreen.dart';
 import 'package:wisata_candi_natalia/screens/detail_screen.dart';
 
 void main(){
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: DetailScreen(),
+      home: SearchScreen(),
     );
   }
 
