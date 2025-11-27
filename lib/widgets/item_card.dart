@@ -1,101 +1,63 @@
 import 'package:flutter/material.dart';
 import '/models/candi.dart';
+import 'package:wisata_candi_natalia/screens/detail_screen.dart';
 
-class ItemCard extends StatefulWidget {
+class ItemCard extends StatelessWidget {
+  // TODO: 1. Deklarasi variabel yang dibutuhkan dan pasang pada konstruktor
   final Candi candi;
-  final VoidCallback? onTap;
 
-  const ItemCard({
-    super.key,
-    required this.candi,
-    this.onTap,
-  });
-
-  @override
-  State<ItemCard> createState() => _ItemCardState();
-}
-
-class _ItemCardState extends State<ItemCard> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _scaleAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: const Duration(milliseconds: 300),
-      vsync: this,
-    );
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 1.05).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+  const ItemCard({super.key, required this.candi});
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: widget.onTap,
-      onTapDown: (_) => _controller.forward(),
-      onTapUp: (_) => _controller.reverse(),
-      onTapCancel: () => _controller.reverse(),
-      child: ScaleTransition(
-        scale: _scaleAnimation,
-        child: Card(
-          elevation: 3,
-          margin: const EdgeInsets.all(8),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          clipBehavior: Clip.antiAlias,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: 150,
-                width: double.infinity,
-                child: Hero(
-                  tag: 'candi-${widget.candi.name}',
+    // TODO: 6. Implementasi routing ke DetailScreen
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => DetailScreen(candi: candi)),
+        );
+      },
+      child: Card(
+        // TODO: 2. Tetapkan parameter shape, margin, dan elevation
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        margin: EdgeInsets.all(4),
+        elevation: 1,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // TODO: 3. Buat Image sebagai anak dari Column
+            Expanded(
+              // TODO: 7. Implementasi Hero animation
+              child: Hero(
+                tag: candi.imageAsset,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
                   child: Image.asset(
-                    widget.candi.imageAsset,
+                    candi.imageAsset,
+                    width: double.infinity,
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.candi.name,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      widget.candi.location,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey[700],
-                      ),
-                    ),
-                  ],
+            ),
+            // TODO: 4. Buat Text sebagai anak dari Column
+            Padding(
+              padding: const EdgeInsets.only(left: 16, top: 8),
+              child: Text(
+                candi.name,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ],
-          ),
+            ),
+            // TODO: 5. Buat Text sebagai anak dari Column
+            Padding(
+              padding: const EdgeInsets.only(left: 16, bottom: 8),
+              child: Text(candi.type, style: const TextStyle(fontSize: 12)),
+            ),
+          ],
         ),
       ),
     );

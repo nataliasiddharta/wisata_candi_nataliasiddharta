@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:encrypt/encrypt.dart' as encrypt;
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -12,18 +13,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
   // 1. Declare necessary variables
   bool isSignedIn = false;
   String fullName = ''; // Example name
-  String userName = ''; // Example username
+  String userName = ""; // Example username
   int favoriteCandiCount = 0;
+  late Color iconColor;
 
   //5. implementasi fungsi signIn
   void signIn() {
-    Navigator.pushNamed(context, "/signinscreen");
+    Navigator.pushNamed(context, "/signin");
+    // setState(() {
+    //   isSignedIn = !isSignedIn;
+    //   userName = 'faiz';
+    //   fullName = 'Faiz Ganteng';
+    //   favoriteCandiCount = 3;
+    // });
   }
 
   //6. implementasi fungsi signOut
   void signOut() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isSignedIn', false);
+
     //await prefs.remove('username');
     //await prefs.remove('name');
 
@@ -47,14 +56,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
       fullName = prefs.getString("fullname") ?? "";
       userName = prefs.getString("username") ?? "";
     });
+    final keyString = prefs.getString('key') ?? '';
+    final ivString = prefs.getString('iv') ?? '';
+    final encrypt.Key key = encrypt.Key.fromBase64(keyString);
+    final iv = encrypt.IV.fromBase64(ivString);
+
+    final encrypter = encrypt.Encrypter(encrypt.AES(key));
+    fullName = encrypter.decrypt64(fullName, iv: iv);
+    userName = encrypter.decrypt64(userName, iv: iv);
   }
 
   @override
   void initState() {
     _checkSignInStatus();
-    if (isSignedIn) {
-      _identitas();
-    }
+    _identitas();
+
     super.initState();
   }
 
