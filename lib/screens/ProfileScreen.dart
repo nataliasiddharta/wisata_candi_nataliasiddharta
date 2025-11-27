@@ -81,7 +81,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Row(
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width / 3,
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width / 3,
                       child: Row(
                         children: [
                           Icon(Icons.person, color: Colors.blue),
@@ -111,7 +114,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Row(
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width / 3,
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width / 3,
                       child: Row(
                         children: [
                           Icon(Icons.lock, color: Colors.amber),
@@ -134,13 +140,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: 4),
-                Divider(color: Colors.deepPurple[100]),
-                SizedBox(height: 4),
+                SizedBox(height: 4,),
+                Divider(color: Colors.deepPurple[100],),
+                SizedBox(height: 4,),
                 Row(
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width / 3,
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width / 3,
                       child: Row(
                         children: [
                           Icon(Icons.person, color: Colors.blue),
@@ -170,8 +179,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Divider(color: Colors.deepPurple[100]),
                 SizedBox(height: 4),
                 isSignedIn
-                    ? TextButton(onPressed: signOut, child: Text('Sign Out'))
-                    : TextButton(onPressed: signIn, child: Text('Sign In')),
+                    ? TextButton(
+                  onPressed: signOut,
+                  child: Text('Sign Out'),
+                )
+                    : TextButton(
+                  onPressed: signIn,
+                  child: Text('Sign In'),
+                ),
               ],
             ),
           ),

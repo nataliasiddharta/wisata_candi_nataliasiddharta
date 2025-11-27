@@ -6,6 +6,8 @@ import 'package:wisata_candi_natalia/screens/ProfileScreen.dart';
 import 'package:wisata_candi_natalia/screens/SignInScreen.dart';
 import 'package:wisata_candi_natalia/screens/HomeScreen.dart';
 import 'package:wisata_candi_natalia/screens/SignUpScreen.dart';
+import 'package:wisata_candi_natalia/screens/FavoriteScreen.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -95,22 +97,6 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class FavoriteScreen extends StatelessWidget {
-  const FavoriteScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Favorit'),
-      ),
-      body: const Center(
-        child: Text('Halaman Favorit'),
       ),
     );
   }
