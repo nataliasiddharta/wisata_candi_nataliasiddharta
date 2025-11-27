@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../models/candi.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -19,7 +18,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       //TODO: 2.Buat appbar dengan judul pencarian candi
-      appBar: AppBar(title: Text('Pencarian Candi')),
+      appBar: AppBar(title: Text('Wisata Candi')),
       //TODO: 3. Buat body berupa Column
       body: Column(
         children: [
@@ -55,10 +54,10 @@ class _SearchScreenState extends State<SearchScreen> {
           //TODO: 5. Buat ListView hasil pencarian sebagai anak dari Column
           ListView.builder(
             itemCount: _filteredCandi.length,
-            itemBuilder: (context, index){
+            itemBuilder: (context, index) {
               final candi = _filteredCandi[index];
               return Card(
-                margin: const EdgeInsets.symmetric(horizontal: 16, vertical:4 ),
+                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -69,10 +68,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       height: 100,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
-                        child: Image.asset(
-                          candi.imageAsset,
-                          fit: BoxFit.cover,
-                        ),
+                        child: Image.asset(candi.imageAsset, fit: BoxFit.cover),
                       ),
                     ),
 
@@ -97,8 +93,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   ],
                 ),
               );
-
-            }
+            },
           ),
         ],
       ),
