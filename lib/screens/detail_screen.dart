@@ -193,7 +193,23 @@ class _DetailScreenState extends State<DetailScreen> {
                         return Padding(
                           padding: const EdgeInsets.only(right: 8),
                           child: GestureDetector(
-                            onTap: () {}, // bisa ditambah fullscreen nanti
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (_) => Dialog(
+                                  child: InteractiveViewer(
+                                    child: CachedNetworkImage(
+                                      imageUrl: widget.candi.imageUrls[index],
+                                      placeholder: (_, __) => const Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                      errorWidget: (_, __, ___) =>
+                                          const Icon(Icons.error),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
@@ -207,11 +223,11 @@ class _DetailScreenState extends State<DetailScreen> {
                                 child: CachedNetworkImage(
                                   imageUrl: widget.candi.imageUrls[index],
                                   width: 120,
-                                  height: 120,
+                                  height: 100,
                                   fit: BoxFit.cover,
                                   placeholder: (context, url) => Container(
                                     width: 120,
-                                    height: 120,
+                                    height: 100,
                                     color: Colors.deepPurple[50],
                                   ),
                                   errorWidget: (context, url, error) =>
@@ -230,8 +246,6 @@ class _DetailScreenState extends State<DetailScreen> {
                     'Tap untuk memperbesar',
                     style: TextStyle(fontSize: 12, color: Colors.black54),
                   ),
-
-                  const SizedBox(height: 20),
                 ],
               ),
             ),
