@@ -152,13 +152,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             decoration: TextDecoration.underline,
                             fontSize: 16,
                           ),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              Navigator.pushReplacementNamed(
-                                context,
-                                '/signin',
-                              );
-                            },
+                          recognizer: TapGestureRecognizer()..onTap = () {},
                         ),
                       ],
                     ),

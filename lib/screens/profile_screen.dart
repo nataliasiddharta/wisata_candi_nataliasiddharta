@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -8,21 +9,53 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  // 1. Declare necessary variables
   bool isSignedIn = false;
-  String fullName = '';
-  String userName = '';
-  int favoriteCandicount = 0;
+  String fullName = ''; // Example name
+  String userName = ''; // Example username
+  int favoriteCandiCount = 0;
 
+  //5. implementasi fungsi signIn
   void signIn() {
+    Navigator.pushNamed(context, "/signinscreen");
+  }
+
+  //6. implementasi fungsi signOut
+  void signOut() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isSignedIn', false);
+    //await prefs.remove('username');
+    //await prefs.remove('name');
+
     setState(() {
-      isSignedIn = true;
+      isSignedIn = !isSignedIn;
+      userName = '';
+      fullName = '';
     });
   }
 
-  void signOut() {
+  void _checkSignInStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      isSignedIn = false;
+      isSignedIn = prefs.getBool("isSignedIn") ?? false;
     });
+  }
+
+  void _identitas() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      fullName = prefs.getString("fullname") ?? "";
+      userName = prefs.getString("username") ?? "";
+    });
+  }
+
+  @override
+  void initState() {
+    _checkSignInStatus();
+    if (isSignedIn) {
+      _identitas();
+    }
+    super.initState();
   }
 
   @override
@@ -39,11 +72,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               children: [
-                //TODO: 2. Buat bagian profileheader yang berisi gambar profile
                 Align(
                   alignment: Alignment.topCenter,
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 200 - 50),
+                    padding: const EdgeInsets.only(top: 150), // 200 - 50 = 150
                     child: Stack(
                       alignment: Alignment.bottomRight,
                       children: [
@@ -58,7 +90,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: CircleAvatar(
                             radius: 50,
                             backgroundImage: AssetImage(
-                              'images/placeholder_image.png',
+                              'assets/placeholder_image.png',
                             ),
                           ),
                         ),
@@ -74,50 +106,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                 ),
-                //TODO: 3. Buat bagian Profileinfo yang berisi info profil
                 SizedBox(height: 20),
                 Divider(color: Colors.deepPurple[100]),
                 SizedBox(height: 4),
                 Row(
                   children: [
                     SizedBox(
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width / 3,
-                      child: Row(
-                        children: [
-                          Icon(Icons.person, color: Colors.blue),
-                          SizedBox(width: 8),
-                          Text(
-                            'Nama',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        ': $fullName',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ),
-                    if (isSignedIn) Icon(Icons.edit),
-                  ],
-                ),
-                SizedBox(height: 4),
-                Divider(color: Colors.deepPurple[100]),
-                SizedBox(height: 4),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width / 3,
+                      width: MediaQuery.of(context).size.width / 3,
                       child: Row(
                         children: [
                           Icon(Icons.lock, color: Colors.amber),
@@ -140,16 +135,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: 4,),
-                Divider(color: Colors.deepPurple[100],),
-                SizedBox(height: 4,),
+                SizedBox(height: 4),
+                Divider(color: Colors.deepPurple[100]),
+                SizedBox(height: 4),
                 Row(
                   children: [
                     SizedBox(
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width / 3,
+                      width: MediaQuery.of(context).size.width / 3,
                       child: Row(
                         children: [
                           Icon(Icons.person, color: Colors.blue),
@@ -170,23 +162,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         style: TextStyle(fontSize: 18),
                       ),
                     ),
-                    if (isSignedIn) Icon(Icons.edit),
                   ],
                 ),
-                //TODO: 4. Buat ProfileAction yang berisi TextButton sign in/out
-                //TODO: 4. Buat ProfileAction yang berisi TextButton sign in/out
                 SizedBox(height: 4),
                 Divider(color: Colors.deepPurple[100]),
                 SizedBox(height: 4),
-                isSignedIn
-                    ? TextButton(
-                  onPressed: signOut,
-                  child: Text('Sign Out'),
-                )
-                    : TextButton(
-                  onPressed: signIn,
-                  child: Text('Sign In'),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 3,
+                      child: Row(
+                        children: [
+                          Icon(Icons.favorite, color: Colors.red),
+                          SizedBox(width: 8),
+                          Text(
+                            'Favorite',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        ': $favoriteCandiCount',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ),
+                  ],
                 ),
+                isSignedIn
+                    ? TextButton(onPressed: signOut, child: Text('Sign Out'))
+                    : TextButton(onPressed: signIn, child: Text('Sign In')),
               ],
             ),
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../models/candi.dart';
+import 'package:wisata_candi_natalia/models/candi.dart';
+import 'package:wisata_candi_natalia/data/candi_data.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -9,31 +10,36 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  List<Candi> _filteredCandi = [];
-  String _searchQuery = '';
+  //TODO 1 Variabel
+  List<Candi> _filteredCandis = candiList;
+  String _searchQuery = "";
   final TextEditingController _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Wisata Candi')),
-
+      //TODO 2 APPBar
+      appBar: AppBar(title: Text('Pencarian Candi')),
+      //TODO 3 Body
       body: Column(
         children: [
+          //TODO 4 Textfield Search
           Padding(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.all(16),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.deepPurple[50],
                 borderRadius: BorderRadius.circular(5),
+                color: Colors.deepPurple[50],
               ),
               child: TextField(
-                controller: _searchController,
                 autofocus: false,
-                decoration: const InputDecoration(
-                  hintText: 'Mencari Candi...',
+                decoration: InputDecoration(
+                  hintText: "Cari Candi....",
                   prefixIcon: Icon(Icons.search),
                   border: InputBorder.none,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.deepPurple),
+                  ),
                   contentPadding: EdgeInsets.symmetric(
                     horizontal: 16,
                     vertical: 12,
@@ -42,18 +48,14 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             ),
           ),
-
-          // ⭐ FIX: BUNGKUS LISTVIEW DENGAN EXPANDED
+          //TODO 5 Listview
           Expanded(
             child: ListView.builder(
-              itemCount: _filteredCandi.length,
-              itemBuilder: (context, index) {
-                final candi = _filteredCandi[index];
+              itemCount: _filteredCandis.length,
+              itemBuilder: (content, index) {
+                final candi = _filteredCandis[index];
                 return Card(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 4,
-                  ),
+                  margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -70,18 +72,12 @@ class _SearchScreenState extends State<SearchScreen> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(8.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              candi.name,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
+                            Text(candi.name, style: TextStyle(fontSize: 16)),
+                            SizedBox(height: 4),
                             Text(candi.location),
                           ],
                         ),
@@ -92,6 +88,7 @@ class _SearchScreenState extends State<SearchScreen> {
               },
             ),
           ),
+          const SizedBox(height: 16),
         ],
       ),
     );

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:wisata_candi_natalia/data/candi_data.dart';
-import 'package:wisata_candi_natalia/screens/SearchScreen.dart';
+import 'package:wisata_candi_natalia/screens/search_screen.dart';
 import 'package:wisata_candi_natalia/screens/detail_screen.dart';
-import 'package:wisata_candi_natalia/screens/ProfileScreen.dart';
-import 'package:wisata_candi_natalia/screens/SignInScreen.dart';
-import 'package:wisata_candi_natalia/screens/HomeScreen.dart';
-import 'package:wisata_candi_natalia/screens/SignUpScreen.dart';
-import 'package:wisata_candi_natalia/screens/FavoriteScreen.dart';
+import 'package:wisata_candi_natalia/screens/profile_screen.dart';
+import 'package:wisata_candi_natalia/screens/sign_in_screen.dart';
+import 'package:wisata_candi_natalia/screens/home_screen.dart';
+import 'package:wisata_candi_natalia/screens/sign_up_screen.dart';
+import 'package:wisata_candi_natalia/screens/favorite_screen.dart';
 
 
 void main() {
