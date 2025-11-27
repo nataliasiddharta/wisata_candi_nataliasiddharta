@@ -44,8 +44,11 @@ class _HomeScreenState extends State<HomeScreen>
         itemCount: candiList.length,
         itemBuilder: (context, index) {
           final Candi candi = candiList[index];
-          final Animation<double> animation = Tween<double>(begin: 0.0, end: 1.0)
-              .animate(
+
+          final Animation<double> animation = Tween<double>(
+            begin: 0.0,
+            end: 1.0,
+          ).animate(
             CurvedAnimation(
               parent: _animationController,
               curve: Interval(

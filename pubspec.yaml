@@ -40,6 +40,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  shared_preferences: ^2.2.3
+  encrypt: ^5.0.1
+  pointycastle: ^3.7.3
 
 
 
