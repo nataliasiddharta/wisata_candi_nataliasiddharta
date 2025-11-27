@@ -60,7 +60,7 @@ class _DetailScreenState extends State<DetailScreen> {
     setState(() {
       isFavorite = !isFavorite;
       widget.candi.isFavorite = isFavorite;
-    });
+    })
 
     // Simpan ke SharedPreferences
     final favoriteNames = prefs.getStringList('favoriteCandiNames') ?? [];
