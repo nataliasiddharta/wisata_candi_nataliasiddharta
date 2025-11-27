@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '/models/candi.dart';
 
 class ItemCard extends StatefulWidget {
@@ -57,13 +56,14 @@ class _ItemCardState extends State<ItemCard> with SingleTickerProviderStateMixin
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
+              Container(
+                height: 150,
+                width: double.infinity,
                 child: Hero(
                   tag: 'candi-${widget.candi.name}',
                   child: Image.asset(
                     widget.candi.imageAsset,
                     fit: BoxFit.cover,
-                    width: double.infinity,
                   ),
                 ),
               ),
